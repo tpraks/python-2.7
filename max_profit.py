@@ -18,6 +18,17 @@ getMaxProfit(stockPricesYesterday);
 // returns 6 (buying for $5 and selling for $11)
 
 """
+def min(a,b):
+  if a >= b: 
+    return b
+  else:
+    return a
+
+def max(a,b):
+  if a >= b:
+    return a
+  else:
+    return b
 
 def max_profit(price_list):
   temp_min_index=min_index=max_index=0
@@ -40,7 +51,7 @@ def max_profit(price_list):
           temp_min_index = min_index
           max_index = i
     i+=1
-  return(min_index, max_index, best_diff)
+  return(min_index+1, max_index+1, best_diff)
 
 
 def main():
