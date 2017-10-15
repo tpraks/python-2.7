@@ -1,0 +1,215 @@
+HIERARCHY:
+===================================================================================
+
+def print_emp_directory(directory,searchkey,ident):
+  for key,val in directory.items():
+    if searchkey == key:
+      if not val[2]:
+        print "%s %d %s %s" %("  "*ident,key, val[0],val[1])
+   
+
+     return
+      else:
+        print "%s %d %s %s" %("  "*ident,key, val[0],val[1])
+        print "%s %s" %("  "*ident,"|")
+        print "%s %s" %("  "*ident,"-"*ident)
+        for sub_key in val[2]:
+          print_emp_directory(directory,sub_key,ident+2)    
+
+
+
+
+emp_directory={1:["prakash","CEO",[2,3,4]],2:["babu","CTO",[5,6,7]],3:["gopu","SVP",[8,9]],4:["ramu","SVPI",[10,11]],5:["name5","T5",[]],6:["nam6","T6",[]],7:["name7","T7",[]],8:["name8","T8",[]],9:["name9","T9",[]],10:["name10","T10",[]],11:["name11","T11",[]]}
+print_emp_directory(emp_directory,1,2)
+"""
+
+
+STOCK PRICE:
+==================================================================================
+
+For example:
+
+  int[] stockPricesYesterday = new int[] {10, 7, 5, 8, 11, 9};
+
+getMaxProfit(stockPricesYesterday);
+// returns 6 (buying for $5 and selling for $11)
+
+"""
+
+def max_profit(price_list):
+  temp_min_index=min_index=max_index=0
+  diff = best_diff = 0
+  n=len(price_list)
+  i = 1  
+  while i < n :
+    if price_list[i] <= price_list[temp_min_index]:
+      temp_min_index = i
+    else:
+      diff = price_list[i] - price_list[temp_min_index]
+      if (diff >= best_diff):
+        best_diff = diff
+        min_index = temp_min_index
+        max_index = i
+      else:
+        diff = price_list[i] - price_list[min_index]
+        if (diff >= best_diff):
+          best_diff = diff
+          temp_min_index = min_index
+          max_index = i
+    i+=1
+  return(min_index+1, max_index+1, best_diff)
+
+def get_max_profit_o(stock_prices_yesterday):
+
+  if len(stock_prices_yesterday) < 2:
+    raise IndexError('Getting a profit requires at least 2 prices')
+
+  min_price = stock_prices_yesterday[0]
+  max_profit_o = stock_prices_yesterday[1] - stock_prices_yesterday[0]
+
+  for index, current_price in enumerate(stock_prices_yesterday):
+
+    if index == 0:
+      continue
+
+    potential_profit = current_price - min_price
+    max_profit_o = max(max_profit_o, potential_profit)
+    min_price  = min(min_price, current_price)
+
+  return max_profit_o
+
+
+def main():
+
+  stock_price_in_a_day=[]
+
+  # Input test values - Different test cases:
+
+  for list in [[5,6,15,3,2,4,7,4,3,1,29,7,8,8,6,35,23,25],[30,6,15,3,2,4,7,4,3,7,20,7,8,8,6,35,23,25],[5,6,15,3,2,4,7,4,3,8,25,7,8,8,6,1,23,20],[5,6,15,3,21,4,7,41,33,20,29,7,8,8,6,5,23,5],[5,6,15,31,32,34,7,4,3,11,29,7,8,8,6,35,23,25],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],[21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1]]:
+    stock_price_in_a_day.append(list)
+
+  # Call the function for all test inputs above:
+
+  for stock_price in stock_price_in_a_day:
+    print "\n %s" % stock_price
+    min_index,max_index,max_prof = max_profit(stock_price)
+    print "m_index: %d ma_index: %d ma_profit: %d"  % (min_index, max_index, max_prof)
+  print "---------------------------------------------"
+  for stock_price in stock_price_in_a_day:
+    print "\n %s" % stock_price
+    print "ma_profit_o: %d"  % get_max_profit_o(stock_price)
+  print "--------stock_price_on------------------------------"
+  for stock_price in stock_price_in_a_day:
+    print "\n %s" % stock_price
+    print "ma_profit_o: %d"  % get_max_profit_on(stock_price)
+
+
+if __name__ == '__main__':
+  main()
+======================================================================================
+COINS:
+
+
+def change_possibilities_bottom_up(amount, denominations):
+  ways_of_doing_n_cents = [0] * (amount + 1)
+  print "Printing Array after initialization..."
+  print ways_of_doing_n_cents
+  ways_of_doing_n_cents[0] = 1
+
+  for coin in denominations:
+    print("For coin in : %d" % coin)
+    for higher_amount in xrange(coin, amount + 1):
+      print("For higher_amount in : %d" % higher_amount)
+      higher_amount_remainder = higher_amount - coin
+      ways_of_doing_n_cents[higher_amount] += ways_of_doing_n_cents[higher_amount_remainder]
+      print "+++++++++++++++++ WAY OF DOING N CENTS +++++++++++++++++++"
+      print ("way of doing n cents \[higher amount\]: %d is: %d" % (higher_amount,ways_of_doing_n_cents[higher_amount]))
+      print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+  return ways_of_doing_n_cents[amount]
+
+def main():
+
+  print ("Number of possibilities for value: %d is: %d" % (124,change_possibilities_bottom_up(124,[1,5,10,25,50,100])))
+#  print ("Number of possibilities for value: %d is: %d" % (124,change_possibilities_bottom_up(5,[5,2,1])))
+
+if __name__ == '__main__':
+  main()
+===================================================================
+
+ANAGRAMS: YIELD
+
+def anagrams(word):
+    """ Generate all of the anagrams of a word. """ 
+    if len(word) < 2:
+        yield word
+    else:
+        for i, letter in enumerate(word):
+            print i, letter
+            if not letter in word[:i]: #avoid duplicating earlier words
+                for j in anagrams(word[:i]+word[i+1:]):
+                    print ("Inside J:%s" % j)
+                    yield j+letter 
+
+if __name__ == "__main__":
+    for i in anagrams("abc"):
+        print i
+=================================================================
+def anagrams(word): 
+    if len(word) < 2:
+        return word
+    else:
+        tmp = []
+        for i, letter in enumerate(word):
+            for j in anagrams(word[:i]+word[i+1:]):
+                tmp.append(j+letter)
+    return tmp
+
+if __name__ == "__main__":
+    anagram_list =  anagrams("abc")
+    print anagram_list
+
+================================================================
+startNumber = int(raw_input("Enter the start number here "))
+
+def fib(n):
+    if n < 0:
+        print ("Error: Val less than 0")
+        return -1
+    if n == 0 or n == 1:
+        return n
+    else:
+        print fib(n-2) + fib(n-1)
+        return fib(n-2) + fib(n-1)
+
+==========================================================
+print fib(startNumber-1)
+def fact(n):
+  if ( n == 1 ): 
+    return 1
+  else:
+    return n * fact( n - 1 )
+
+
+num = input("Enter number to print its factorial:")
+print (fact(num))
+
+=========================================================
+
+FIND AND REPLACE
+================
+import os
+rootdir = raw_input("Enter Dir to read:")
+
+for subdir, dirs, files in os.walk(rootdir):
+    for file in files:
+        print os.path.join(subdir, file)
+		f=open(file,'r')
+		lines=f.readlines()
+		for line in lines:
+			line=re.sub(src_str,repl_str,line)
+		f=open(file,'w')
+			
+		
+	print ("--------------")
+	for dir in dirs:
+		print dir

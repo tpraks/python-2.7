@@ -1,8 +1,4 @@
 
-
-
-
-
 def print_emp_directory(directory,searchkey,ident):
   for key,val in directory.items():
     if searchkey == key:
