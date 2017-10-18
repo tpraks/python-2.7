@@ -12,7 +12,7 @@ def generate_delimited_appdetail_file(in_file,my_delimiter,my_date):
       new_line=find_and_replace_control_chars(line,my_delimiter)
       out_file.write(new_line+"\n")
   out_file.close()
-  in_file.close()
+  f.close()
 
 
 def generate_delimited_file(in_file,delimiter):
@@ -22,7 +22,7 @@ def generate_delimited_file(in_file,delimiter):
     new_line=find_and_replace_control_chars(line,delimiter)
     out_file.write(new_line+"\n")
   out_file.close()
-  in_file.close()
+  f.close()
 
 def apps_with_max_rating(delimited_file,delimiter,max_rating):
   out_file = open("results.txt", "w")
@@ -32,7 +32,7 @@ def apps_with_max_rating(delimited_file,delimiter,max_rating):
       if int(line.rsplit(delimiter,2)[1]) <= max_rating:
         out_file.write(line)
   out_file.close()
-  delimited_file.close()
+  f.close()
 
 def retrieve_app_name(app_ids_file):
   out_file = open("app_names.list", "r")
@@ -41,7 +41,7 @@ def retrieve_app_name(app_ids_file):
     if not line.startswith("#"):
       if int(line.rsplit(delimiter,2)[1]) <= max_rating:
         out_file.write(line)
-  app_ids_file.close()
+  f.close()
   out_file.close()
   
 def merge_appname_and_popularity(app_info,popularity_info,merge_file):
@@ -84,7 +84,7 @@ def main():
   my_date = "1506502800513"
   if (in_file == "") or (in_file == "1") :
     in_file = "free_application_popularity_per_genre"
-  elif (in_file == 2): 
+  elif (in_file == "2"): 
     in_file = "application_detail"
   else: 
     in_file = "merged_file.txt"
