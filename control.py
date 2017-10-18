@@ -80,7 +80,7 @@ def main():
   print("And generates delimited_file.txt and also spits out results.txt with all app ids of rating 1 to MAX")
   in_file = raw_input("Input File Name \n ( Enter 1 or 2 or 3) \n (default: 1 - free_application_popularity_per_genre): \n ( 2 - application_detail ): \n ( 3 - Merge files ): \n ")
   max_rating = raw_input("Enter MAX Rating level (default 100) :")
-  my_delimiter  = raw_input("Enter Delimiter (default ,(comma) :")
+  my_delimiter  = raw_input("Enter Delimiter (default #(hash) :")
   my_date = "1506502800513"
   if (in_file == "") or (in_file == "1") :
     in_file = "free_application_popularity_per_genre"
